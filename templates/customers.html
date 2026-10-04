@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Customers{% endblock %}
+{% block content %}
+<header class="page-head">
+  <h1>Customer segments</h1>
+  <p class="lede">Sample segments from <code>models/segmentation.py</code> — swap for real clustering once purchase history is available.</p>
+</header>
+
+<section class="seg-grid">
+  {% for s in segments %}
+  <div class="seg-card">
+    <div class="seg-head">
+      <h3>{{ s.name }}</h3>
+      <span class="seg-count">{{ s.customer_count }}</span>
+    </div>
+    <p class="seg-desc">{{ s.description }}</p>
+    <p class="seg-action"><strong>Suggested action:</strong> {{ s.suggested_action }}</p>
+  </div>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Stock{% endblock %}
+{% block content %}
+<header class="page-head">
+  <h1>Current stock</h1>
+  <p class="lede">Loaded from <code>data/sample_stock.csv</code> — replace this file with real counts as you go.</p>
+</header>
+
+<section class="panel">
+  <table class="data-table">
+    <thead>
+      <tr><th>Plant type</th><th>Size</th><th>Quantity</th><th>Price (JOD)</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <td>{{ row.plant_type }}</td>
+        <td>{{ row.size }}</td>
+        <td>{{ row.quantity }}</td>
+        <td>{{ row.price_jod }}</td>
+        <td class="muted">{{ row.notes if row.notes and row.notes == row.notes else "" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

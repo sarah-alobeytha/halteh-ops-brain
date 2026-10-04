@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Reorder{% endblock %}
+{% block content %}
+<header class="page-head">
+  <h1>Reorder plan</h1>
+  <p class="lede">Rule-based for now, from <code>models/reorder.py</code> — compares predicted demand to current stock with a safety buffer.</p>
+</header>
+
+<section class="panel">
+  <table class="data-table">
+    <thead>
+      <tr><th>Plant type</th><th>Size</th><th>In stock</th><th>Predicted demand (7d)</th><th>Status</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      {% for r in plan %}
+      <tr>
+        <td>{{ r.plant_type }}</td>
+        <td>{{ r.size }}</td>
+        <td>{{ r.current_stock }}</td>
+        <td>{{ r.predicted_demand_7d }}</td>
+        <td><span class="pill pill-{{ r.urgency }}">{{ r.urgency }}</span></td>
+        <td class="muted">{{ r.action }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

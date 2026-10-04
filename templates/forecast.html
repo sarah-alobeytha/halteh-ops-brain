@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Forecast{% endblock %}
+{% block content %}
+<header class="page-head">
+  <h1>7-day demand forecast</h1>
+  <p class="lede">Placeholder predictions from <code>models/forecast.py</code> — confidence is marked low until real sales history feeds the model.</p>
+</header>
+
+<section class="panel">
+  <table class="data-table">
+    <thead>
+      <tr><th>Plant type</th><th>Size</th><th>Current stock</th><th>Predicted demand (7d)</th><th>Confidence</th></tr>
+    </thead>
+    <tbody>
+      {% for f in forecast %}
+      <tr>
+        <td>{{ f.plant_type }}</td>
+        <td>{{ f.size }}</td>
+        <td>{{ f.current_stock }}</td>
+        <td>{{ f.predicted_demand_7d }}</td>
+        <td class="muted">{{ f.confidence }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

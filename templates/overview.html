@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<header class="page-head">
+  <h1>Good to know before you open today</h1>
+  <p class="lede">A quick read on stock, value at risk, and what needs attention — pulled from the plants pilot dataset.</p>
+</header>
+
+<section class="stat-row">
+  <div class="stat">
+    <span class="stat-value">{{ item_count }}</span>
+    <span class="stat-label">plant lines tracked</span>
+  </div>
+  <div class="stat">
+    <span class="stat-value">{{ total_units }}</span>
+    <span class="stat-label">units in stock</span>
+  </div>
+  <div class="stat">
+    <span class="stat-value">{{ total_value }} JOD</span>
+    <span class="stat-label">stock value</span>
+  </div>
+  <div class="stat stat-flag">
+    <span class="stat-value">{{ urgent_reorders }}</span>
+    <span class="stat-label">need reorder now</span>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head">
+    <h2>Most urgent right now</h2>
+    <a href="{{ url_for('reorder_page') }}" class="panel-link">See full reorder plan</a>
+  </div>
+  <table class="data-table">
+    <thead>
+      <tr><th>Plant</th><th>Size</th><th>In stock</th><th>Predicted 7-day demand</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      {% for r in top_reorders %}
+      <tr>
+        <td>{{ r.plant_type }}</td>
+        <td>{{ r.size }}</td>
+        <td>{{ r.current_stock }}</td>
+        <td>{{ r.predicted_demand_7d }}</td>
+        <td><span class="pill pill-{{ r.urgency }}">{{ r.urgency }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="panel note">
+  <p><strong>This is running on placeholder logic.</strong> Forecast and reorder numbers come from a simple heuristic in <code>models/forecast.py</code> and <code>models/reorder.py</code> — swap those functions for trained models once real sales history is logged. The rest of the app doesn't need to change.</p>
+</section>
+{% endblock %}
